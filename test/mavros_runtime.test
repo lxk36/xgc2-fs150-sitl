@@ -1,0 +1,5 @@
+<launch>
+<include file="$(dirname)/../launch/fs150.launch"><arg name="gui" value="false"/><arg name="sitl_node_name" value="sitl3"/></include>
+<include file="$(dirname)/../launch/fs150.launch"><arg name="ID" value="4"/><arg name="ns" value="uav2"/><arg name="sitl_node_name" value="sitl4"/><arg name="start_gazebo" value="false"/><arg name="x" value="3"/><arg name="mavros_local_port" value="16004"/></include>
+<test test-name="mavros_runtime" pkg="gazebo_sim_fs150_sitl" type="mavros_runtime.py" time-limit="100"/>
+</launch>

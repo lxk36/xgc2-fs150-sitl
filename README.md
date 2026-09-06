@@ -212,3 +212,17 @@ The expected values are `24`, `3`, `0`, `0`, `1`, `1`, `0`, `2`, and `2`.
 `IMU_GYRO_RATEMAX=800`, `IMU_INTEG_RATE=800`, `HIGHRES_IMU(105)` at 250 Hz into
 `/mavros/imu/data_raw`. Details: [docs/fs150_imu_mavros_rate_debug.md](docs/fs150_imu_mavros_rate_debug.md).
 Onboard CPU governor is the real-vehicle package, not this SITL tree.
+
+## Executable port acceptance
+
+Run `rostest gazebo_sim_fs150_sitl mavros_runtime.test` only in a disposable
+PX4/Gazebo/MAVROS environment. It starts ID3 with the default 15003/15303 pair
+and ID4 with explicit MAVROS local port16004, separate model/work directory/node
+identities, and `start_gazebo=false` sharing the first world. Both must receive
+FCU heartbeats and an accepted acknowledgment for disarming the already-unarmed
+simulated FCU. No arming or flight command is sent. The test includes its source
+launch by relative path so installed older launch files cannot mask the change.
+
+Validated with packaged PX41.12.3-24 and the current source launch in an isolated
+`xgc2-core-runtime:ubuntu20-noetic-amd64-v1` container, with no devices, network
+interfaces beyond loopback, host ports, station volumes or personal data.
